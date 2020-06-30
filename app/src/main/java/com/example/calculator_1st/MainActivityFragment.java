@@ -1,9 +1,8 @@
 package com.example.calculator_1st;
-
 import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the  factory method to
- * create an instance of this fragment.
- */
 public class MainActivityFragment extends Fragment {
 
     private ViewGroup container;
@@ -25,7 +18,7 @@ public class MainActivityFragment extends Fragment {
     private TextView textView;
     private Button button;
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
-
+    private Button buttonLeftPts, buttonRightPts, buttonPercent, buttonClear, buttonPlus, buttonMinus, buttonTimes, buttonDivide, buttonEquals, buttonPoint;
 
     boolean isFirstInput = true;
     boolean isOperatorClick = false;
@@ -35,14 +28,13 @@ public class MainActivityFragment extends Fragment {
     String lastOperator = "＋";
 
     TextView resultText;
+    TextView mathText;
 
     public MainActivityFragment() {
-
-
-
     }
 
     public View initializeUserInterface() {
+
         View view;
 
         // If there is already a layout inflated, remove it.
@@ -62,10 +54,10 @@ public class MainActivityFragment extends Fragment {
         }
 
 
-        // Instantiate our widgets from the layout.
-        editText = view.findViewById(R.id.editText);
-        textView = view.findViewById(R.id.textView);
-        button = view.findViewById(R.id.button);
+        //Instantiate our widgets from the layout.
+        //editText = view.findViewById(R.id.editText);
+        //textView = view.findViewById(R.id.textView);
+        //button = view.findViewById(R.id.button);
         button1 = view.findViewById(R.id.num_1_button);
         button2 = view.findViewById(R.id.num_2_button);
         button3 = view.findViewById(R.id.num_3_button);
@@ -76,7 +68,20 @@ public class MainActivityFragment extends Fragment {
         button8 = view.findViewById(R.id.num_8_button);
         button9 = view.findViewById(R.id.num_9_button);
         button0 = view.findViewById(R.id.num_0_button);
+
+        buttonLeftPts = view.findViewById(R.id.left_pts_button);
+        buttonRightPts = view.findViewById(R.id.right_pts_button);
+        buttonPercent = view.findViewById(R.id.percent_button);
+        buttonClear = view.findViewById(R.id.clear_button);
+        buttonPlus = view.findViewById(R.id.plus_button);
+        buttonMinus = view.findViewById(R.id.minus_button);
+        buttonTimes = view.findViewById(R.id.times_button);
+        buttonDivide = view.findViewById(R.id.divide_button);
+        buttonEquals = view.findViewById(R.id.equals_button);
+        buttonPoint = view.findViewById(R.id.point_button);
+
         resultText = view.findViewById(R.id.result_text_view);
+        mathText = view.findViewById(R.id.math_text_view);
 
         // Display the orientation in the text view.
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -86,36 +91,64 @@ public class MainActivityFragment extends Fragment {
             //textView.setText("Landscape");
 
             // Get the width of the screen.
-            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-            int width = displayMetrics.widthPixels;
+            //DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            //int width = displayMetrics.widthPixels;
 
             // If we have a small screen, adjust text size.
-            if (width < 793) {
-                textView.setTextSize(12);
-            }
+            //if (width < 793) {
+            //    textView.setTextSize(12);
+            //}
         }
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             // Create an on click listener for the button that loads a new fragment for the user.
-            button1.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button2.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    action_1(view);
-                }
-            });
-            button3.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    action_1(view);
-                }
-            });
-            button4.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button5.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button6.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button7.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button8.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
-            button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { action_1(view); } });
+            button1.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button2.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button3.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button4.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button5.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button6.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button7.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button8.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+
+            //buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            //buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
+            buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonMinus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonTimes.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonDivide.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonEquals.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { equalsButtonClick(view); } });
+            buttonPoint.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { pointButtonClick(view); } });
         }
+        else {
+            // Create an on click listener for the button that loads a new fragment for the user.
+            button1.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button2.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button3.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button4.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button5.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button6.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button7.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button8.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+
+            //buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            //buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
+            buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonMinus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonTimes.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonDivide.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonEquals.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { equalsButtonClick(view); } });
+            buttonPoint.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { pointButtonClick(view); } });
+        }
+
         /*
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,34 +157,11 @@ public class MainActivityFragment extends Fragment {
                 ((MainActivity)getActivity()).loadFragment(new BlankFragment());
             }
         });
-
-         */
-
-
-
-
+        */
 
         return view;
     }
-    public void action_1(View view) {
-        String getButtonText = view.getTag().toString();
 
-        if(isFirstInput) {
-
-            //resultText.setTextColor(0xFF666666);
-            resultText.setText(getButtonText);
-
-            //activityMainBinding.resultTextView.setText(getButtonText);
-            isFirstInput = false;
-        }
-        else {
-            if(resultText.getText().toString().equals("0")) {
-                //Toast.makeText(this, "0000", Toast.LENGTH_SHORT).show();
-                isFirstInput = true;
-            }
-            resultText.append(getButtonText);
-        }
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -165,20 +175,23 @@ public class MainActivityFragment extends Fragment {
         return initializeUserInterface();
     }
 
-    /**
-     * This is called when the user rotates the device.
-     * @param newConfig Configuration
-     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+
         // Save the text that the user has already typed.
-        //String preserveThisText = editText.getText().toString();
+        // String preserveThisText = editText.getText().toString();
+        String preserveThisText = resultText.getText().toString();
+        String preserveThisMathText = mathText.getText().toString();
+
+        // Log.e("onConfigurationChanged", preserveThisText + " " + preserveThisMathText);
 
         // Create the new layout.
         View view = initializeUserInterface();
 
         // Display the text the user has already typed.
         //editText.setText(preserveThisText);
+        resultText.setText(preserveThisText);
+        mathText.setText(preserveThisMathText);
 
         // Display the new layout on the screen.
         container.addView(view);
@@ -187,31 +200,179 @@ public class MainActivityFragment extends Fragment {
         super.onConfigurationChanged(newConfig);
     }
 
-    public void action1(View view) {
+
+    public void numButtonClick(View view) {
+
+        Log.e("numButtonClick", view.getTag().toString() + " " + isFirstInput);
 
         String getButtonText = view.getTag().toString();
-        //Log.e("B--->", getButtonText + " " + getButtonText + " " + getButtonText);
-        //Toast.makeText(this, "0으로 시작되는 숫자는 없습니다.", Toast.LENGTH_SHORT).show();
-/*
-        if(isFirstInput) {
 
-            //resultText.setTextColor(0xFF666666);
+        if(isFirstInput) {
+            resultText.setTextColor(0xFF666666);
             resultText.setText(getButtonText);
 
             //activityMainBinding.resultTextView.setText(getButtonText);
             isFirstInput = false;
         }
         else {
-            //if(activityMainBinding.resultTextView.getText().toString().equals("0")) {
             if(resultText.getText().toString().equals("0")) {
-                Toast.makeText(this, "0으로 시작되는 숫자는 없습니다.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "0000", Toast.LENGTH_SHORT).show();
                 isFirstInput = true;
             }
             resultText.append(getButtonText);
-//            activityMainBinding.resultTextView.append(getButtonText);
         }
-        */
     }
 
+    public void operatorClick (View view) {
+
+        //÷, ×, ＋, -
+        isOperatorClick = true;
+        lastOperator = view.getTag().toString();
+
+        inputNumber = Double.parseDouble(resultText.getText().toString());
+        //inputNumber = Double.parseDouble(activityMainBinding.resultTextView.getText().toString());
+        Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+
+        resultNumber = calculator(resultNumber, inputNumber, operator);
+        Log.e("calculator111111", resultNumber + " " + inputNumber + " " + operator);
+
+        resultText.setText(String.valueOf(resultNumber));
+        //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+        isFirstInput = true;
+        operator = view.getTag().toString();
+        mathText.append(inputNumber + " " + operator + " ");
+
+    }
+
+    public  void equalsButtonClick (View view) {
+
+//        if(isFirstInput) {
+//            if(isOperatorClick) {
+//                activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
+//                resultNumber = calculator(resultNumber, inputNumber, lastOperator);
+//                activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+//            }
+//        }
+//        else {
+
+        inputNumber = Double.parseDouble(resultText.getText().toString());
+
+        resultNumber = calculator(resultNumber, inputNumber, operator);
+        resultText.setText(String.valueOf(resultNumber));
+        isFirstInput = true;
+
+        operator = view.getTag().toString();
+        mathText.append(inputNumber + " " + operator + " ");
+        // }
+
+    }
+
+    private double calculator(double resultNumber, double inputNumber, String operator) {
+
+        Log.e("calculator--->", resultNumber + " " + inputNumber + " " + operator);
+
+        //÷, ×, ＋, -
+        if(operator.equals("=")) {
+            resultNumber = inputNumber;
+            Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
+        }
+        else if(operator.equals("＋")) {
+            resultNumber = resultNumber + inputNumber;
+            Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
+        }
+        else if(operator.equals("-")) {
+            resultNumber = resultNumber - inputNumber;
+            Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
+        }
+        else if(operator.equals("×")) {
+            resultNumber = resultNumber * inputNumber;
+            Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
+        }
+        else if(operator.equals("÷")) {
+            resultNumber = resultNumber / inputNumber;
+            Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+        }
+
+        /*
+            case "=" :
+                resultNumber = inputNumber;
+                Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
+                break;
+            case "＋" :
+                resultNumber = resultNumber + inputNumber;
+                Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
+            case "-" :
+                resultNumber = resultNumber - inputNumber;
+                Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
+            case "×" :
+                resultNumber = resultNumber * inputNumber;
+                Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
+            case "÷" :
+                resultNumber = resultNumber / inputNumber;
+                Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+
+
+            default :
+                Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+                break;
+                }
+         */
+
+
+//        switch (operator) {
+//
+//            case "=" :
+//                resultNumber = inputNumber;
+//                Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
+//                break;
+//            case "＋" :
+//                resultNumber = resultNumber + inputNumber;
+//                Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
+//            case "-" :
+//                resultNumber = resultNumber - inputNumber;
+//                Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
+//            case "×" :
+//                resultNumber = resultNumber * inputNumber;
+//                Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
+//            case "÷" :
+//                resultNumber = resultNumber / inputNumber;
+//                Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+//
+//
+//            default :
+//                Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+//                break;
+//        }
+
+
+        return resultNumber;
+    }
+
+    public void allClearButtonClick (View view) {
+
+        resultText.setText(("0"));
+        mathText.setText("");
+
+        resultNumber = 0;
+        operator = "＋";
+        isFirstInput = true;
+    }
+
+    public void pointButtonClick (View view) {
+        if(isFirstInput) {
+            resultText.setText("0" + view.getTag().toString());
+            //activityMainBinding.resultTextView.setText("0" + view.getTag().toString());
+            isFirstInput = false;
+        }
+        else {
+            if(resultText.toString().contains(".")) {
+                //Toast.makeText("a", "ddd", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "이미 소숫점이 존재합니다", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                resultText.append(view.getTag().toString());
+            }
+        }
+    }
 
 }
