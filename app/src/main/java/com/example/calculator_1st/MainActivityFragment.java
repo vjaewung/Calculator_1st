@@ -53,7 +53,6 @@ public class MainActivityFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_main_activity_horizontal, container, false);
         }
 
-
         //Instantiate our widgets from the layout.
         //editText = view.findViewById(R.id.editText);
         //textView = view.findViewById(R.id.textView);
@@ -213,13 +212,19 @@ public class MainActivityFragment extends Fragment {
 
             //activityMainBinding.resultTextView.setText(getButtonText);
             isFirstInput = false;
+            if(operator.equals("=")) {
+                mathText.setText("");
+            }
         }
         else {
             if(resultText.getText().toString().equals("0")) {
                 //Toast.makeText(this, "0000", Toast.LENGTH_SHORT).show();
+                resultText.setText("0");
                 isFirstInput = true;
             }
-            resultText.append(getButtonText);
+            else {
+                resultText.append(getButtonText);
+            }
         }
     }
 
@@ -229,41 +234,61 @@ public class MainActivityFragment extends Fragment {
         isOperatorClick = true;
         lastOperator = view.getTag().toString();
 
-        inputNumber = Double.parseDouble(resultText.getText().toString());
-        //inputNumber = Double.parseDouble(activityMainBinding.resultTextView.getText().toString());
-        Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+        if(isFirstInput) {
+            if(operator.equals("=")) {
+                operator = view.getTag().toString();
+                resultNumber = Double.parseDouble((resultText.getText().toString()));
+                mathText.setText(resultNumber + " " + operator + " ");
+            } else {
+                operator = view.getTag().toString();
+                String getMathText = mathText.getText().toString();
+                String subString = getMathText.substring(0, getMathText.length() - 2);
+                mathText.setText(subString);
+                mathText.append(operator + " ");
+            }
+        }
+        else {
+            inputNumber = Double.parseDouble(resultText.getText().toString());
+            //inputNumber = Double.parseDouble(activityMainBinding.resultTextView.getText().toString());
+//            Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
 
-        resultNumber = calculator(resultNumber, inputNumber, operator);
-        Log.e("calculator111111", resultNumber + " " + inputNumber + " " + operator);
+            resultNumber = calculator(resultNumber, inputNumber, operator);
 
-        resultText.setText(String.valueOf(resultNumber));
-        //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
-        isFirstInput = true;
-        operator = view.getTag().toString();
-        mathText.append(inputNumber + " " + operator + " ");
+//            Log.e("calculator111111", resultNumber + " " + inputNumber + " " + operator);
+
+            resultText.setText(String.valueOf(resultNumber));
+            //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+            isFirstInput = true;
+            operator = view.getTag().toString();
+
+            mathText.append(inputNumber + " " + operator + " ");
+        }
 
     }
 
     public  void equalsButtonClick (View view) {
 
-//        if(isFirstInput) {
-//            if(isOperatorClick) {
-//                activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
-//                resultNumber = calculator(resultNumber, inputNumber, lastOperator);
-//                activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
-//            }
-//        }
-//        else {
+        if(isFirstInput) {
+            if(isOperatorClick) {
+                mathText.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
+                //activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
+                resultNumber = calculator(resultNumber, inputNumber, lastOperator);
+                resultText.setText(String.valueOf(resultNumber));
+                //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+            }
+        }
+        else {
 
-        inputNumber = Double.parseDouble(resultText.getText().toString());
+            inputNumber = Double.parseDouble(resultText.getText().toString());
 
-        resultNumber = calculator(resultNumber, inputNumber, operator);
-        resultText.setText(String.valueOf(resultNumber));
-        isFirstInput = true;
+            resultNumber = calculator(resultNumber, inputNumber, operator);
+            lastOperator = operator; //?
+            resultText.setText(String.valueOf(resultNumber));
+            isFirstInput = true;
 
-        operator = view.getTag().toString();
-        mathText.append(inputNumber + " " + operator + " ");
-        // }
+            operator = view.getTag().toString();
+            mathText.append(inputNumber + " " + operator + " ");
+        }
 
     }
 
@@ -272,6 +297,7 @@ public class MainActivityFragment extends Fragment {
         Log.e("calculator--->", resultNumber + " " + inputNumber + " " + operator);
 
         //÷, ×, ＋, -
+
         if(operator.equals("=")) {
             resultNumber = inputNumber;
             Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
@@ -318,32 +344,32 @@ public class MainActivityFragment extends Fragment {
                 }
          */
 
+/*
+        switch (operator) {
 
-//        switch (operator) {
-//
-//            case "=" :
-//                resultNumber = inputNumber;
-//                Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
-//                break;
-//            case "＋" :
-//                resultNumber = resultNumber + inputNumber;
-//                Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
-//            case "-" :
-//                resultNumber = resultNumber - inputNumber;
-//                Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
-//            case "×" :
-//                resultNumber = resultNumber * inputNumber;
-//                Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
-//            case "÷" :
-//                resultNumber = resultNumber / inputNumber;
-//                Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
-//
-//
-//            default :
-//                Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
-//                break;
-//        }
+            case "=" :
+                resultNumber = inputNumber;
+                Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
+                break;
+            case "＋" :
+                resultNumber = resultNumber + inputNumber;
+                Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
+            case "-" :
+                resultNumber = resultNumber - inputNumber;
+                Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
+            case "×" :
+                resultNumber = resultNumber * inputNumber;
+                Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
+            case "÷" :
+                resultNumber = resultNumber / inputNumber;
+                Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
 
+
+            default :
+                Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+                break;
+        }
+ */
 
         return resultNumber;
     }
@@ -366,7 +392,6 @@ public class MainActivityFragment extends Fragment {
         }
         else {
             if(resultText.toString().contains(".")) {
-                //Toast.makeText("a", "ddd", Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this, "이미 소숫점이 존재합니다", Toast.LENGTH_SHORT).show();
             }
             else {
