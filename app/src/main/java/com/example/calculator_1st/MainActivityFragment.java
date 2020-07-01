@@ -619,6 +619,7 @@ public class MainActivityFragment extends Fragment {
     }
 
 
+
     private static String getCalculate(String content) {
 
         char[] operationCode = {'＋', '-', '×', '÷', '(', ')'}; //연산 부호
