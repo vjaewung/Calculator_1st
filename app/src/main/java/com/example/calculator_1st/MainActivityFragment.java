@@ -214,6 +214,7 @@ public class MainActivityFragment extends Fragment {
             isFirstInput = false;
             if(operator.equals("=")) {
                 mathText.setText("");
+                isOperatorClick = false;
             }
         }
         else {
@@ -380,8 +381,10 @@ public class MainActivityFragment extends Fragment {
         mathText.setText("");
 
         resultNumber = 0;
-        operator = "＋";
+//        operator = "＋";
+        operator = "=";
         isFirstInput = true;
+        isOperatorClick = false;
     }
 
     public void pointButtonClick (View view) {
@@ -397,6 +400,20 @@ public class MainActivityFragment extends Fragment {
             else {
                 resultText.append(view.getTag().toString());
             }
+        }
+    }
+
+    public void backspaceButtonClick(View view) {
+        if(!isFirstInput) {
+            String getResultText = resultText.getText().toString();
+            if(getResultText.length() == 1) {
+                String subString = getResultText.substring(0, getResultText.length() - 1);
+                resultText.setText(subString);
+            } else {
+                resultText.setText("0");
+                isFirstInput = true;
+            }
+
         }
     }
 
