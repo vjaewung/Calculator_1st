@@ -112,8 +112,8 @@ public class MainActivityFragment extends Fragment {
             button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
             button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
 
-            //buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
-            //buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
             //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
             buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
@@ -136,8 +136,8 @@ public class MainActivityFragment extends Fragment {
             button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
             button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
 
-            //buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
-            //buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
             //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
             buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
@@ -206,91 +206,158 @@ public class MainActivityFragment extends Fragment {
 
         String getButtonText = view.getTag().toString();
 
-        if(isFirstInput) {
-            resultText.setTextColor(0xFF666666);
-            resultText.setText(getButtonText);
-
-            //activityMainBinding.resultTextView.setText(getButtonText);
-            isFirstInput = false;
-            if(operator.equals("=")) {
-                mathText.setText("");
-                isOperatorClick = false;
-            }
+        boolean paranExist = ckParanExist(resultText.getText().toString());
+        if(paranExist) {
+            resultText.append(getButtonText);
         }
         else {
-            if(resultText.getText().toString().equals("0")) {
-                //Toast.makeText(this, "0000", Toast.LENGTH_SHORT).show();
-                resultText.setText("0");
-                isFirstInput = true;
-            }
-            else {
-                resultText.append(getButtonText);
+            if (isFirstInput) {
+
+                resultText.setTextColor(0xFF666666);
+                resultText.setText(getButtonText);
+
+                isFirstInput = false;
+                if (operator.equals("=")) {
+                    mathText.setText("");
+                    isOperatorClick = false;
+                }
+            } else {
+                if (resultText.getText().toString().equals("0")) {
+                    resultText.setText("0");
+                    isFirstInput = true;
+                } else {
+                    resultText.append(getButtonText);
+                }
             }
         }
     }
 
+    public void paranButtonClick(View view) {
+
+        Log.e("paranButtonClick", view.getTag().toString() + " " + isFirstInput);
+
+        String getButtonText = view.getTag().toString();
+        boolean paranExist = ckParanExist(resultText.getText().toString());
+        if(paranExist) {
+            resultText.append(getButtonText);
+        }
+        else {
+            if (isFirstInput) {
+                resultText.setTextColor(0xFF666666);
+                resultText.setText(getButtonText);
+
+                isFirstInput = false;
+                if (operator.equals("=")) {
+                    mathText.setText("");
+                    isOperatorClick = false;
+                }
+            } else {
+                if (resultText.getText().toString().equals("0")) {
+                    //Toast.makeText(this, "0000", Toast.LENGTH_SHORT).show();
+                    resultText.setText("0");
+                    isFirstInput = true;
+                } else {
+                    resultText.append(getButtonText);
+                }
+            }
+        }
+    }
+
+    public boolean ckParanExist(String resultText) {
+        if(resultText.indexOf("(") > -1 || resultText.indexOf(")") > -1) { return  true; }
+        else { return false; }
+    }
+
     public void operatorClick (View view) {
 
-        //÷, ×, ＋, -
-        isOperatorClick = true;
-        lastOperator = view.getTag().toString();
+        Log.e("operatorClick", resultText.getText().toString() + " " + ckParanExist(resultText.getText().toString()));
+        //if(resultText.getText().toString().indexOf("("))
 
-        if(isFirstInput) {
-            if(operator.equals("=")) {
-                operator = view.getTag().toString();
-                resultNumber = Double.parseDouble((resultText.getText().toString()));
-                mathText.setText(resultNumber + " " + operator + " ");
+        boolean paranExist = ckParanExist(resultText.getText().toString());
+        if(paranExist) {
+            //÷, ×, ＋, -
+            isOperatorClick = true;
+            lastOperator = view.getTag().toString();
+
+            if (isFirstInput) {
+                if (operator.equals("=")) {
+                    operator = view.getTag().toString();
+                    resultNumber = Double.parseDouble((resultText.getText().toString()));
+                    mathText.setText(resultNumber + " " + operator + " ");
+                } else {
+                    operator = view.getTag().toString();
+                    String getMathText = mathText.getText().toString();
+                    String subString = getMathText.substring(0, getMathText.length() - 2);
+                    mathText.setText(subString);
+                    mathText.append(operator + " ");
+                }
             } else {
+                //inputNumber = Double.parseDouble(resultText.getText().toString());
+                //resultNumber = calculator(resultNumber, inputNumber, operator);
+                //resultText.setText(String.valueOf(resultNumber));
+                isFirstInput = true;
                 operator = view.getTag().toString();
-                String getMathText = mathText.getText().toString();
-                String subString = getMathText.substring(0, getMathText.length() - 2);
-                mathText.setText(subString);
-                mathText.append(operator + " ");
+                resultText.append(operator);
+                //mathText.append(inputNumber + " " + operator + " ");
             }
         }
         else {
-            inputNumber = Double.parseDouble(resultText.getText().toString());
-            //inputNumber = Double.parseDouble(activityMainBinding.resultTextView.getText().toString());
-//            Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
+            //÷, ×, ＋, -
+            isOperatorClick = true;
+            lastOperator = view.getTag().toString();
 
-            resultNumber = calculator(resultNumber, inputNumber, operator);
-
-//            Log.e("calculator111111", resultNumber + " " + inputNumber + " " + operator);
-
-            resultText.setText(String.valueOf(resultNumber));
-            //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
-            isFirstInput = true;
-            operator = view.getTag().toString();
-
-            mathText.append(inputNumber + " " + operator + " ");
+            if (isFirstInput) {
+                if (operator.equals("=")) {
+                    operator = view.getTag().toString();
+                    resultNumber = Double.parseDouble((resultText.getText().toString()));
+                    mathText.setText(resultNumber + " " + operator + " ");
+                } else {
+                    operator = view.getTag().toString();
+                    String getMathText = mathText.getText().toString();
+                    String subString = getMathText.substring(0, getMathText.length() - 2);
+                    mathText.setText(subString);
+                    mathText.append(operator + " ");
+                }
+            } else {
+                inputNumber = Double.parseDouble(resultText.getText().toString());
+                resultNumber = calculator(resultNumber, inputNumber, operator);
+                resultText.setText(String.valueOf(resultNumber));
+                isFirstInput = true;
+                operator = view.getTag().toString();
+                mathText.append(inputNumber + " " + operator + " ");
+            }
         }
 
     }
 
     public  void equalsButtonClick (View view) {
 
-        if(isFirstInput) {
-            if(isOperatorClick) {
-                mathText.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
-                //activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
-                resultNumber = calculator(resultNumber, inputNumber, lastOperator);
-                resultText.setText(String.valueOf(resultNumber));
-                //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
-            }
+        boolean paranExist = ckParanExist(resultText.getText().toString());
+        if(paranExist) {
+
         }
         else {
+            if (isFirstInput) {
+                if (isOperatorClick) {
+                    mathText.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
+                    //activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
+                    resultNumber = calculator(resultNumber, inputNumber, lastOperator);
+                    resultText.setText(String.valueOf(resultNumber));
+                    //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+                }
+            } else {
 
-            inputNumber = Double.parseDouble(resultText.getText().toString());
+                inputNumber = Double.parseDouble(resultText.getText().toString());
 
-            resultNumber = calculator(resultNumber, inputNumber, operator);
-            lastOperator = operator; //?
-            resultText.setText(String.valueOf(resultNumber));
-            isFirstInput = true;
+                resultNumber = calculator(resultNumber, inputNumber, operator);
+                lastOperator = operator; //?
+                resultText.setText(String.valueOf(resultNumber));
+                isFirstInput = true;
 
-            operator = view.getTag().toString();
-            mathText.append(inputNumber + " " + operator + " ");
+                operator = view.getTag().toString();
+                mathText.append(inputNumber + " " + operator + " ");
+            }
         }
-
     }
 
     private double calculator(double resultNumber, double inputNumber, String operator) {

@@ -19,9 +19,9 @@
             android:layout_margin="2dp"
             android:layout_weight="40"
             android:gravity="center_vertical|right"
-            android:padding="5dp"
+            android:padding="4dp"
             android:textColor="#666666"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/result_text_view"
@@ -64,9 +64,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="12"
-                android:tag="!"
-                android:text="!"
-                android:textSize="18sp" />
+                android:tag="pi"
+                android:text="π"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_2_button"
                 android:layout_width="0dp"
@@ -74,7 +75,8 @@
                 android:layout_weight="13"
                 android:tag="Rad"
                 android:text="Rad"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_3_button"
                 android:layout_width="0dp"
@@ -82,7 +84,8 @@
                 android:layout_weight="15"
                 android:tag="Div"
                 android:text="Div"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/left_pts_button"
                 android:layout_width="0dp"
@@ -90,7 +93,7 @@
                 android:layout_weight="15"
                 android:tag="("
                 android:text="("
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/right_pts_button"
@@ -99,7 +102,7 @@
                 android:layout_weight="15"
                 android:tag=")"
                 android:text=")"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/percent_button"
@@ -117,7 +120,7 @@
                 android:backgroundTint="#929292"
 
                 android:text="AC"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -135,7 +138,8 @@
                 android:layout_weight="12"
                 android:tag="Sin"
                 android:text="Sin"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_5_button"
                 android:layout_width="0dp"
@@ -143,7 +147,8 @@
                 android:layout_weight="13"
                 android:tag="Cos"
                 android:text="Cos"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_6_button"
                 android:layout_width="0dp"
@@ -151,7 +156,8 @@
                 android:layout_weight="15"
                 android:tag="Tan"
                 android:text="Tan"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/num_7_button"
                 android:layout_width="0dp"
@@ -205,7 +211,8 @@
                 android:layout_weight="12"
                 android:tag="In"
                 android:text="In"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_8_button"
                 android:layout_width="0dp"
@@ -213,7 +220,8 @@
                 android:layout_weight="13"
                 android:tag="log"
                 android:text="log"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_9_button"
                 android:layout_width="0dp"
@@ -221,7 +229,8 @@
                 android:layout_weight="15"
                 android:tag="1/x"
                 android:text="1/x"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/num_4_button"
                 android:layout_width="0dp"
@@ -267,30 +276,34 @@
             android:layout_weight="20"
             android:orientation="horizontal"
             android:weightSum="100">
+
             <Button
                 android:id="@+id/special_10_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="12"
                 android:tag="ex"
-                android:text="ex"
-                android:textSize="18sp" />
+                android:text="eˣ"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_11_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="13"
                 android:tag="x2"
-                android:text="x2"
-                android:textSize="18sp" />
+                android:text="x²"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_12_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="15"
                 android:tag="xy"
-                android:text="xy"
-                android:textSize="18sp" />
+                android:text="xʸ"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/num_1_button"
                 android:layout_width="0dp"
@@ -345,7 +358,8 @@
                 android:layout_weight="12"
                 android:tag="(x)"
                 android:text="(x)"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_14_button"
                 android:layout_width="0dp"
@@ -353,7 +367,8 @@
                 android:layout_weight="13"
                 android:tag="n"
                 android:text="n"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/special_15_button"
                 android:layout_width="0dp"
@@ -361,7 +376,8 @@
                 android:layout_weight="15"
                 android:tag="e"
                 android:text="e"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/num_0_button"
                 android:layout_width="0dp"
