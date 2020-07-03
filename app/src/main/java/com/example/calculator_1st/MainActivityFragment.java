@@ -180,6 +180,9 @@ public class MainActivityFragment extends Fragment {
 
             special_1_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
             //special_2_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            special_4_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            special_5_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            special_6_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
 
             special_7_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
 
@@ -274,6 +277,34 @@ public class MainActivityFragment extends Fragment {
         String expression = expressionText;
         //String expression = number+"!";
 Log.e("expression", expression);
+
+        char temp1, temp2;
+        int lengthOfExp = expression.length();
+
+        for(int i = 0 ; i < lengthOfExp - 1; i++) {
+
+            temp1 = expression.charAt(i);
+            temp2 = expression.charAt(i+1);
+            Log.e("check", temp1 + "/" + temp2);
+            if(Character.isDigit(temp1)) {
+                Log.e("check->", Character.isDigit(temp1) + "");
+//                if("(".equals(temp2)) {
+                if("(".equals(String.valueOf(temp2))) {
+                    Log.e("생략", temp1 + " " + temp2);
+                    expression = expressionText.substring(0,i) + "*" + expressionText.substring(i ,expressionText.length());
+                    Log.e("*생략", " " + expression);
+                }
+            }
+//            if(")".equals(temp1) || "(".equals(temp1)) {
+//                if(Character.isDigit(temp2)) {
+//                    expression = expression.substring(0,)
+//                }
+//            }
+
+        }
+
+
+
         Expression e1 = new Expression(expression);
         String result = String.valueOf(e1.calculate());
         mathText.setText(expression + " = " + result);
@@ -307,7 +338,26 @@ Log.e("specialOperator", specialOperator);
             mathText.setText(expression + " = " + result);
             resultText.setText(result);
         }
+        if("Sin".equals(specialOperator)) {
+            mathText.setText("");
+            isFirstInput = true;
+            String expression = "sin(";
+            resultText.setText(expression);
+        }
+        if("Cos".equals(specialOperator)) {
+            mathText.setText("");
+            isFirstInput = true;
+            String expression = "cos(";
+            resultText.setText(expression);
+        }
+        if("Tan".equals(specialOperator)) {
+            mathText.setText("");
+            isFirstInput = true;
+            String expression = "tan(";
+            resultText.setText(expression);
+        }
 
+        operator = "=";
 
     }
     public void percentClick(View view) {
