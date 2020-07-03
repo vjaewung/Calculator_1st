@@ -1,2 +1,2 @@
 rootProject.name='Calculator_1st'
-include ':app'
+include ':app', ':MathParser.org-mXparser-4.4.2'

@@ -69,31 +69,13 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/special_2_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="13"
-                android:tag="Rad"
-                android:text="Rad"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/special_3_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:tag="Div"
-                android:text="Div"
-                android:textSize="12sp" />
-
-            <Button
                 android:id="@+id/left_pts_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="15"
+                android:layout_weight="13"
                 android:tag="("
                 android:text="("
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/right_pts_button"
@@ -102,15 +84,33 @@
                 android:layout_weight="15"
                 android:tag=")"
                 android:text=")"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/percent_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="15"
+                android:tag="%"
                 android:text="%"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/back_space_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:tag="BS"
+                android:text="BS"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clear_entry_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:text="CE"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/clear_button"
@@ -209,8 +209,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="12"
-                android:tag="In"
-                android:text="In"
+                android:tag="x!"
+                android:text="x!"
                 android:textSize="12sp" />
 
             <Button

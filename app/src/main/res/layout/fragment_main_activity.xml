@@ -60,29 +60,29 @@
             android:weightSum="100">
 
             <Button
-                android:id="@+id/left_pts_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="25"
-                android:tag="("
-                android:text="("
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/right_pts_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="25"
-                android:tag=")"
-                android:text=")"
-                android:textSize="24sp" />
-
-            <Button
                 android:id="@+id/percent_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
+                android:tag="%"
                 android:text="%"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/back_space_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:tag=")"
+                android:text="BS"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/clear_entry_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:text="CE"
                 android:textSize="24sp" />
 
             <Button

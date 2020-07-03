@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -22,7 +24,9 @@ public class MainActivityFragment extends Fragment {
     private TextView textView;
     private Button button;
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0;
-    private Button buttonLeftPts, buttonRightPts, buttonPercent, buttonClear, buttonPlus, buttonMinus, buttonTimes, buttonDivide, buttonEquals, buttonPoint;
+    private Button buttonLeftPts, buttonRightPts, buttonPercent, buttonClear, buttonPlus, buttonMinus, buttonTimes, buttonDivide, buttonEquals, buttonPoint, buttonBackSpace, buttonClearEntry;
+    private Button special_1_button, special_2_button, special_3_button, special_4_button, special_5_button, special_6_button,
+                   special_7_button, special_8_button, special_9_button, special_10_button, special_11_button, special_12_button;
 
     boolean isFirstInput = true;
     boolean isOperatorClick = false;
@@ -30,6 +34,7 @@ public class MainActivityFragment extends Fragment {
     double inputNumber = 0;
     String operator = "＋";
     String lastOperator = "＋";
+    String specialOperator = "";
 
     TextView resultText;
     TextView mathText;
@@ -75,6 +80,8 @@ public class MainActivityFragment extends Fragment {
         buttonLeftPts = view.findViewById(R.id.left_pts_button);
         buttonRightPts = view.findViewById(R.id.right_pts_button);
         buttonPercent = view.findViewById(R.id.percent_button);
+        buttonBackSpace = view.findViewById(R.id.back_space_button);
+        buttonClearEntry = view.findViewById(R.id.clear_entry_button);
         buttonClear = view.findViewById(R.id.clear_button);
         buttonPlus = view.findViewById(R.id.plus_button);
         buttonMinus = view.findViewById(R.id.minus_button);
@@ -82,6 +89,19 @@ public class MainActivityFragment extends Fragment {
         buttonDivide = view.findViewById(R.id.divide_button);
         buttonEquals = view.findViewById(R.id.equals_button);
         buttonPoint = view.findViewById(R.id.point_button);
+
+        special_1_button = view.findViewById(R.id.special_1_button);
+        //special_2_button = view.findViewById(R.id.special_2_button);
+        //special_3_button = view.findViewById(R.id.special_3_button);
+        special_4_button = view.findViewById(R.id.special_4_button);
+        special_5_button = view.findViewById(R.id.special_5_button);
+        special_6_button = view.findViewById(R.id.special_6_button);
+        special_7_button = view.findViewById(R.id.special_7_button);
+        special_8_button = view.findViewById(R.id.special_8_button);
+        special_9_button = view.findViewById(R.id.special_9_button);
+        special_10_button = view.findViewById(R.id.special_10_button);
+        special_11_button = view.findViewById(R.id.special_11_button);
+        special_12_button = view.findViewById(R.id.special_12_button);
 
         resultText = view.findViewById(R.id.result_text_view);
         mathText = view.findViewById(R.id.math_text_view);
@@ -116,9 +136,11 @@ public class MainActivityFragment extends Fragment {
             button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
             button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
 
-            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
-            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
-            //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+//            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+//            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            buttonBackSpace.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { backSpaceButtonClick(view); } });
+            buttonClearEntry.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { clearText(view); } });
+            buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
             buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonMinus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
@@ -128,6 +150,40 @@ public class MainActivityFragment extends Fragment {
             buttonPoint.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { pointButtonClick(view); } });
         }
         else {
+
+            button1.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button2.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button3.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button4.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button5.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button6.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button7.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button8.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+            button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
+
+            buttonBackSpace.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { backSpaceButtonClick(view); } });
+            buttonClearEntry.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { clearText(view); } });
+            buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
+            buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClickLandSpace(view); } });
+            buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClickLandSpace(view); } });
+            buttonMinus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClickLandSpace(view); } });
+            buttonTimes.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClickLandSpace(view); } });
+            buttonDivide.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClickLandSpace(view); } });
+            buttonEquals.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { equalsButtonClickLandSpace(view); } });
+            buttonPoint.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { pointButtonClick(view); } });
+
+            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+
+
+
+            special_1_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            //special_2_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+
+            special_7_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+
+            /*
             // Create an on click listener for the button that loads a new fragment for the user.
             button1.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
             button2.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
@@ -140,9 +196,11 @@ public class MainActivityFragment extends Fragment {
             button9.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
             button0.setOnClickListener(new View.OnClickListener() { public void onClick(View view) { numButtonClick(view); } });
 
-            buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
-            buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
-            //buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
+            //buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            //buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
+            buttonBackSpace.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { backSpaceButtonClick(view); } });
+            buttonClearEntry.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { clearText(view); } });
+            buttonPercent.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonClear.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { allClearButtonClick(view); } });
             buttonPlus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonMinus.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
@@ -150,6 +208,11 @@ public class MainActivityFragment extends Fragment {
             buttonDivide.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { operatorClick(view); } });
             buttonEquals.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { equalsButtonClick(view); } });
             buttonPoint.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { pointButtonClick(view); } });
+
+            special_1_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            special_2_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+
+             */
         }
 
         /*
@@ -164,6 +227,7 @@ public class MainActivityFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -204,9 +268,54 @@ public class MainActivityFragment extends Fragment {
     }
 
 
+    public void equalsButtonClickLandSpace(View view) {
+
+        String expressionText = resultText.getText().toString();
+        String expression = expressionText;
+        //String expression = number+"!";
+Log.e("expression", expression);
+        Expression e1 = new Expression(expression);
+        String result = String.valueOf(e1.calculate());
+        mathText.setText(expression + " = " + result);
+        resultText.setText(result);
+
+        isFirstInput = true;
+
+    }
+    public void specialOperatorClick(View view) {
+        specialOperator = view.getTag().toString();
+Log.e("specialOperator", specialOperator);
+        if("pi".equals(specialOperator)) {
+
+            mathText.setText("");
+            isFirstInput = true;
+
+            Expression e1 = new Expression("pi");
+            String result = String.valueOf(e1.calculate());
+            mathText.setText("π = " + result);
+            resultText.setText(result);
+        }
+        if("x!".equals(specialOperator)) {
+
+            mathText.setText("");
+            isFirstInput = true;
+
+            String number = resultText.getText().toString();
+            String expression = number+"!";
+            Expression e1 = new Expression(number+"!");
+            String result = String.valueOf(e1.calculate());
+            mathText.setText(expression + " = " + result);
+            resultText.setText(result);
+        }
+
+
+    }
+    public void percentClick(View view) {
+
+    }
     public void numButtonClick(View view) {
 
-        Log.e("numButtonClick", view.getTag().toString() + " " + isFirstInput);
+        Log.e("numButtonClick", view.getTag().toString() + " " + isFirstInput + " " + operator);
 
         String getButtonText = view.getTag().toString();
 
@@ -272,6 +381,38 @@ public class MainActivityFragment extends Fragment {
         else { return false; }
     }
 
+    public void operatorClickLandSpace (View view) {
+
+        Log.e("operatorClickLandSpace", resultText.getText().toString() + " " + ckParanExist(resultText.getText().toString()));
+        String getButtonText = view.getTag().toString();
+//÷, ×, ＋, -
+        if("÷".equals(getButtonText)) getButtonText = "/";
+        else if("×".equals(getButtonText)) getButtonText = "*";
+        else if("＋".equals(getButtonText)) getButtonText = "+";
+        else if("-".equals(getButtonText)) getButtonText = "-";
+        else if("%".equals(getButtonText)) getButtonText = "/";
+
+
+        if (isFirstInput) {
+
+            resultText.setTextColor(0xFF666666);
+            resultText.setText(getButtonText);
+
+            isFirstInput = false;
+            if (operator.equals("=")) {
+                isOperatorClick = false;
+            }
+        } else {
+            if (resultText.getText().toString().equals("0")) {
+                resultText.setText("0");
+                isFirstInput = true;
+            } else {
+                resultText.append(getButtonText);
+            }
+        }
+
+
+    }
     public void operatorClick (View view) {
 
         Log.e("operatorClick", resultText.getText().toString() + " " + ckParanExist(resultText.getText().toString()));
@@ -362,7 +503,10 @@ public class MainActivityFragment extends Fragment {
             resultNumber = resultNumber / inputNumber;
             Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
         }
-
+        else if(operator.equals("%")) {
+            resultNumber = resultNumber % inputNumber;
+            Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+        }
         /*
             case "=" :
                 resultNumber = inputNumber;
@@ -386,9 +530,6 @@ public class MainActivityFragment extends Fragment {
                 Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
                 break;
                 }
-         */
-
-/*
         switch (operator) {
 
             case "=" :
@@ -413,7 +554,7 @@ public class MainActivityFragment extends Fragment {
                 Log.e("calculator", resultNumber + " " + inputNumber + " " + operator);
                 break;
         }
- */
+        */
 
         return resultNumber;
     }
@@ -430,20 +571,51 @@ public class MainActivityFragment extends Fragment {
         isOperatorClick = false;
     }
 
+    public void backSpaceButtonClick (View view) {
+        isFirstInput = true;
+        if(resultText.getText().toString().length() > 1) {
+            String getResultText = resultText.getText().toString();
+            String subtractedString = getResultText.substring(0, getResultText.length() - 1);
+            resultText.setText(subtractedString);
+        }
+        else {
+            setClearText("0");
+        }
+    }
+
+    public void setClearText(String clearText) {
+        isFirstInput = true;
+        resultText.setTextColor(0xFF666666);
+        resultText.setText(clearText);
+    }
+
     public void pointButtonClick (View view) {
+
+        Log.e("point", view.getTag().toString() + " " + resultText.getText() + isFirstInput);
         if(isFirstInput) {
             resultText.setText("0" + view.getTag().toString());
             //activityMainBinding.resultTextView.setText("0" + view.getTag().toString());
             isFirstInput = false;
         }
         else {
-            if(resultText.toString().contains(".")) {
+            Log.e("case falsea", view.getTag().toString() + " " + resultText.getText().toString() + " " + isFirstInput);
+
+            if(resultText.getText().toString().contains(".")) {
+                Log.e("point22222", view.getTag().toString() + " " + resultText.getText() + " " + isFirstInput);
+
                 //Toast.makeText(this, "이미 소숫점이 존재합니다", Toast.LENGTH_SHORT).show();
             }
             else {
-                resultText.append(view.getTag().toString());
+                Log.e("point11111", view.getTag().toString() + " " + resultText.getText() + " " + isFirstInput);
+
+                resultText.append( view.getTag().toString());
             }
         }
+    }
+
+    public void clearText(View view) {
+        setClearText("0");
+
     }
 
     public void backspaceButtonClick(View view) {
