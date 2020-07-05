@@ -73,7 +73,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:tag=")"
+                android:tag="BS"
+                android:backgroundTint="#929292"
+
                 android:text="BS"
                 android:textSize="24sp" />
 
@@ -83,6 +85,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="25"
                 android:text="CE"
+                android:backgroundTint="#929292"
+
                 android:textSize="24sp" />
 
             <Button

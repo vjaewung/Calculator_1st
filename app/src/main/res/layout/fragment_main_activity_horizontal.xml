@@ -100,6 +100,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="15"
+                android:backgroundTint="#929292"
+
                 android:tag="BS"
                 android:text="BS"
                 android:textSize="14sp" />
@@ -109,6 +111,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="15"
+                android:backgroundTint="#929292"
+                android:tag="CE"
+
                 android:text="CE"
                 android:textSize="14sp" />
 
