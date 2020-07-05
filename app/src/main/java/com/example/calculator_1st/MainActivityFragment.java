@@ -113,7 +113,7 @@ public class MainActivityFragment extends Fragment {
         else {
             //textView.setText("Landscape");
 
-            // Get the width of the screen.
+            //Get the width of the screen.
             //DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
             //int width = displayMetrics.widthPixels;
 
@@ -176,15 +176,13 @@ public class MainActivityFragment extends Fragment {
             buttonLeftPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
             buttonRightPts.setOnClickListener(new View.OnClickListener() {public void onClick(View view) { paranButtonClick(view); } });
 
-
-
             special_1_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
             //special_2_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
             special_4_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
             special_5_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
             special_6_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
-
             special_7_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
+            special_8_button.setOnClickListener(new View.OnClickListener() {public void onClick(View view) {specialOperatorClick(view); }});
 
             /*
             // Create an on click listener for the button that loads a new fragment for the user.
@@ -253,13 +251,10 @@ public class MainActivityFragment extends Fragment {
         String preserveThisText = resultText.getText().toString();
         String preserveThisMathText = mathText.getText().toString();
 
-        // Log.e("onConfigurationChanged", preserveThisText + " " + preserveThisMathText);
-
         // Create the new layout.
         View view = initializeUserInterface();
 
         // Display the text the user has already typed.
-        //editText.setText(preserveThisText);
         resultText.setText(preserveThisText);
         mathText.setText(preserveThisMathText);
 
@@ -275,8 +270,6 @@ public class MainActivityFragment extends Fragment {
 
         String expressionText = resultText.getText().toString();
         String expression = expressionText;
-        //String expression = number+"!";
-Log.e("expression", expression);
 
         char temp1, temp2;
         int lengthOfExp = expression.length();
@@ -285,25 +278,13 @@ Log.e("expression", expression);
 
             temp1 = expression.charAt(i);
             temp2 = expression.charAt(i+1);
-            Log.e("check", temp1 + "/" + temp2);
             if(Character.isDigit(temp1)) {
-                Log.e("check->", Character.isDigit(temp1) + "");
-//                if("(".equals(temp2)) {
+
                 if("(".equals(String.valueOf(temp2))) {
-                    Log.e("생략", temp1 + " " + temp2);
                     expression = expressionText.substring(0,i) + "*" + expressionText.substring(i ,expressionText.length());
-                    Log.e("*생략", " " + expression);
                 }
             }
-//            if(")".equals(temp1) || "(".equals(temp1)) {
-//                if(Character.isDigit(temp2)) {
-//                    expression = expression.substring(0,)
-//                }
-//            }
-
         }
-
-
 
         Expression e1 = new Expression(expression);
         String result = String.valueOf(e1.calculate());
@@ -314,8 +295,9 @@ Log.e("expression", expression);
 
     }
     public void specialOperatorClick(View view) {
+
         specialOperator = view.getTag().toString();
-Log.e("specialOperator", specialOperator);
+
         if("pi".equals(specialOperator)) {
 
             mathText.setText("");
@@ -356,6 +338,12 @@ Log.e("specialOperator", specialOperator);
             String expression = "tan(";
             resultText.setText(expression);
         }
+        if("log".equals(specialOperator)) {
+            mathText.setText("");
+            isFirstInput = true;
+            String expression = "log(2,";
+            resultText.setText(expression);
+        }
 
         operator = "=";
 
@@ -364,8 +352,6 @@ Log.e("specialOperator", specialOperator);
 
     }
     public void numButtonClick(View view) {
-
-        Log.e("numButtonClick", view.getTag().toString() + " " + isFirstInput + " " + operator);
 
         String getButtonText = view.getTag().toString();
 
@@ -396,8 +382,6 @@ Log.e("specialOperator", specialOperator);
     }
 
     public void paranButtonClick(View view) {
-
-        Log.e("paranButtonClick", view.getTag().toString() + " " + isFirstInput);
 
         String getButtonText = view.getTag().toString();
         boolean paranExist = ckParanExist(resultText.getText().toString());
@@ -465,7 +449,6 @@ Log.e("specialOperator", specialOperator);
     }
     public void operatorClick (View view) {
 
-        Log.e("operatorClick", resultText.getText().toString() + " " + ckParanExist(resultText.getText().toString()));
         //if(resultText.getText().toString().indexOf("("))
 
         boolean paranExist = ckParanExist(resultText.getText().toString());
@@ -523,7 +506,6 @@ Log.e("specialOperator", specialOperator);
                 mathText.append(inputNumber + " " + operator + " ");
             }
         }
-
     }
 
 
@@ -535,27 +517,27 @@ Log.e("specialOperator", specialOperator);
 
         if(operator.equals("=")) {
             resultNumber = inputNumber;
-            Log.e("A--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("A--->", resultNumber + " " + inputNumber + " " + operator);
         }
         else if(operator.equals("＋")) {
             resultNumber = resultNumber + inputNumber;
-            Log.e("B--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("B--->", resultNumber + " " + inputNumber + " " + operator);
         }
         else if(operator.equals("-")) {
             resultNumber = resultNumber - inputNumber;
-            Log.e("C--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("C--->", resultNumber + " " + inputNumber + " " + operator);
         }
         else if(operator.equals("×")) {
             resultNumber = resultNumber * inputNumber;
-            Log.e("D--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("D--->", resultNumber + " " + inputNumber + " " + operator);
         }
         else if(operator.equals("÷")) {
             resultNumber = resultNumber / inputNumber;
-            Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("E--->", resultNumber + " " + inputNumber + " " + operator);
         }
         else if(operator.equals("%")) {
             resultNumber = resultNumber % inputNumber;
-            Log.e("E--->", resultNumber + " " + inputNumber + " " + operator);
+            Log.d("E--->", resultNumber + " " + inputNumber + " " + operator);
         }
         /*
             case "=" :
@@ -641,23 +623,17 @@ Log.e("specialOperator", specialOperator);
 
     public void pointButtonClick (View view) {
 
-        Log.e("point", view.getTag().toString() + " " + resultText.getText() + isFirstInput);
         if(isFirstInput) {
             resultText.setText("0" + view.getTag().toString());
             //activityMainBinding.resultTextView.setText("0" + view.getTag().toString());
             isFirstInput = false;
         }
         else {
-            Log.e("case falsea", view.getTag().toString() + " " + resultText.getText().toString() + " " + isFirstInput);
 
             if(resultText.getText().toString().contains(".")) {
-                Log.e("point22222", view.getTag().toString() + " " + resultText.getText() + " " + isFirstInput);
-
                 //Toast.makeText(this, "이미 소숫점이 존재합니다", Toast.LENGTH_SHORT).show();
             }
             else {
-                Log.e("point11111", view.getTag().toString() + " " + resultText.getText() + " " + isFirstInput);
-
                 resultText.append( view.getTag().toString());
             }
         }
@@ -691,25 +667,17 @@ Log.e("specialOperator", specialOperator);
             case "*":    case "/":
                 return 2;
         }
-        // -1일 경우, 오류
         return -1;
     }
 
 
     public  void equalsButtonClick (View view) {
 
-        Log.e("(equalsButtonClick)", resultText.getText().toString() + " ");
-
         boolean paranExist = ckParanExist(resultText.getText().toString());
         if(paranExist) {
             String b = getCalculate("(10＋20)×10");
-            Log.e("(getCalculate)", resultText.getText().toString() + " " + b);
+            Log.d("(getCalculate)", resultText.getText().toString() + " " + b);
             String a = getCalculate(resultText.getText().toString());
-
-            //double a = calc(resultText.getText().toString());
-            Log.e("(calc) and clay", resultText.getText().toString() + " " + a);
-            //Log.e("(toPostfix)", toPostfix(resultText.getText().toString()) + " ");
-
 
             //inputNumber = Double.parseDouble(resultText.getText().toString());
             resultNumber = Double.parseDouble(a);
@@ -719,19 +687,14 @@ Log.e("specialOperator", specialOperator);
             isFirstInput = true;
             operator = view.getTag().toString();
             mathText.append(inputNumber + " " + operator + " ");
-//            Interpreter interpreter;
-//            interpreter = new Interpreter();
-//            interpreter.eval("result = 5+4*(7-15)");
-//            System.out.println(interpreter.get("result"));
         }
         else {
             if (isFirstInput) {
                 if (isOperatorClick) {
                     mathText.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
-                    //activityMainBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
                     resultNumber = calculator(resultNumber, inputNumber, lastOperator);
                     resultText.setText(String.valueOf(resultNumber));
-                    //activityMainBinding.resultTextView.setText(String.valueOf(resultNumber));
+
                 }
             } else {
 
@@ -750,9 +713,9 @@ Log.e("specialOperator", specialOperator);
 
     private static double calc(String str) {
 
-        // Step1. 중위 순회를 후위 순회로 변환
+        // Step1. 후위 순회로 변환
         ArrayList<String> postfix = toPostfix(str);
-        Log.e("toPostfix--->", postfix + " ");
+        Log.d("toPostfix--->", postfix + " ");
 
         Stack<String> stack = new Stack<>();
         double front, back;
@@ -787,16 +750,12 @@ Log.e("specialOperator", specialOperator);
 
             }
         }
-        Log.e("stack.pop()--->", stack.pop() + " ");
+        Log.d("stack.pop()--->", stack.pop() + " ");
         return Double.parseDouble(stack.pop());
     }
 
 
-    /**
-     * 중위 순회를 후위 순회로 변경하는 메소드
-     * @param str
-     * @return
-     */
+    // 후위 순회로 변경 메소드
     private static ArrayList<String> toPostfix(String str) {
         Log.e("ArrayList-->", str + " ");
         ArrayList<String> result = new ArrayList<>();
@@ -836,7 +795,7 @@ Log.e("specialOperator", specialOperator);
             forPrint = stack.pop();
             result.add(forPrint);
         }
-        Log.e("result--->", result + " ");
+        Log.d("result--->", result + " ");
         return result;
     }
 
@@ -845,10 +804,10 @@ Log.e("specialOperator", specialOperator);
     private static String getCalculate(String content) {
 
         char[] operationCode = {'＋', '-', '×', '÷', '(', ')'}; //연산 부호
-//÷, ×, ＋, -
+        //÷, ×, ＋, -
         ArrayList<String> postfixList = new ArrayList<String>(); //후위표기법으로 변환 후 저장 할 ArrayList
-        Stack<Character> opStack = new Stack<Character>(); // 연산 부호 우선순위처리 하며 후위 표기법으로 변경하는 Stack
-        Stack<String> calculatorStack = new Stack<String>(); //후위 표기법을 계산하는 Stack
+        Stack<Character> opStack = new Stack<Character>();          // 연산 부호 우선순위처리 하며 후위 표기법으로 변경하는 Stack
+        Stack<String> calculatorStack = new Stack<String>();     //후위 표기법을 계산하는 Stack
 
         int index = 0;//content.substring() 인수
 
@@ -859,7 +818,7 @@ Log.e("specialOperator", specialOperator);
                     //postfixList에 연산 부호가 나오기 전까지의 숫자를 담는다(공백제거)
                     postfixList.add(content.substring(index, i).trim().replace("(", "").replace(")", ""));
                     if (content.charAt(i) == '(') {
-                        if (content.charAt(i) == ')') {//우 괄호가 나오면 좌 괄호가 나오거나 스택에 비어있을때 까지 pop하여 list에 저장
+                        if (content.charAt(i) == ')') {     //우 괄호가 나오면 좌 괄호가 나오거나 스택에 비어있을때 까지 pop하여 list에 저장
                             while (true) {
                                 postfixList.add(opStack.pop().toString());
                                 if (opStack.pop() == '(' || opStack.isEmpty()) {
@@ -869,15 +828,15 @@ Log.e("specialOperator", specialOperator);
                         }
                     }
 
-                    if (opStack.isEmpty()) { //opStack이 비어 있을 경우
-                        opStack.push(operationCode[j]); //연산 부호 저장
-                    } else { //opStack이 비어 있지 않을 경우
-                        if (opOrder(operationCode[j]) > opOrder(opStack.peek())) { //우선 순위 비교
-                            opStack.push(operationCode[j]); //스택에 top 값 보다 높은 우선순위이면 그대로 저장
-                        } else if (opOrder(operationCode[j]) <= opOrder(opStack.peek())) {//우선 순위 비교
-                            postfixList.add(opStack.peek().toString());//스택에 있는 값이 우선순위가 같거나 작을 경우 list에 저장
+                    if (opStack.isEmpty()) {                                                //opStack이 비어 있을 경우
+                        opStack.push(operationCode[j]);                                     //연산 부호 저장
+                    } else {                                                                //opStack이 비어 있지 않을 경우
+                        if (opOrder(operationCode[j]) > opOrder(opStack.peek())) {          //우선 순위 비교
+                            opStack.push(operationCode[j]);                                 //스택에 top 값 보다 높은 우선순위이면 그대로 저장
+                        } else if (opOrder(operationCode[j]) <= opOrder(opStack.peek())) {  //우선 순위 비교
+                            postfixList.add(opStack.peek().toString());                     //스택에 있는 값이 우선순위가 같거나 작을 경우 list에 저장
                             opStack.pop();//스택 제거
-                            opStack.push(operationCode[j]);//높은 우선순위 연산 부호 스택에 저장
+                            opStack.push(operationCode[j]);                                 //높은 우선순위 연산 부호 스택에 저장
                         }
                     }
                     index = i + 1;// 다음 순서 처리
@@ -886,7 +845,7 @@ Log.e("specialOperator", specialOperator);
         }
         postfixList.add(content.substring(index, content.length()).trim().replace("(", "").replace(")", "")); //마지막 숫자 처리
 
-        if (!opStack.isEmpty()) { //Stack에 남아있는 연산 모두 postfixList에 추가
+        if (!opStack.isEmpty()) {                                                               //Stack에 남아있는 연산 모두 postfixList에 추가
             for (int i = 0; i < opStack.size();) {
                 postfixList.add(opStack.peek().toString());
                 opStack.pop();
@@ -907,9 +866,7 @@ Log.e("specialOperator", specialOperator);
             }
         }
 
-        //[10, 20, +, 10, *]
-        //300);
-        Log.e("postfixList--->", postfixList + " ");
+        Log.d("postfixList--->", postfixList + " ");
         opStack.clear(); //Stack 비우기
 
         //postfixList를 calculatorStack에 저장하면서 후위연산 처리
@@ -947,7 +904,7 @@ Log.e("specialOperator", specialOperator);
                 }
             }
         }
-        Log.e("calculatorStack.peek()--->", calculatorStack.peek() + " ");
+        Log.d("calculatorStack.peek()--->", calculatorStack.peek() + " ");
 
         double re = Double.parseDouble(calculatorStack.peek()); //Stack Top 데이터
         //String result = String.format("%.10f", re); //소수점 10째짜리
@@ -962,13 +919,10 @@ Log.e("specialOperator", specialOperator);
             }
         }
 
-        //정수부분
         String mok = result.substring(0, num);
 
-        //나머지 연산
         double divde = Double.parseDouble(result) % Double.parseDouble(mok);
 
-        //나머지가 0이면 소수점 자릿 수 안보이게
         if (divde == 0) {
             result = String.format("%.0f", re);
         }
